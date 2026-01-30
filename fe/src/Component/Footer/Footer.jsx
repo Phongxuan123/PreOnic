@@ -1,37 +1,108 @@
 import { Container, Row, Col } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const linkVariants = {
+    hover: {
+      x: 5,
+      color: "#13ec37",
+      transition: { duration: 0.2 }
+    }
+  };
+
   return (
-    <footer className="footer">
+    <motion.footer 
+      className="footer"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={containerVariants}
+    >
       <Container>
         <Row>
           <Col md={4}>
-            <h5>🌱 PreOnic</h5>
-            <p>Nền tảng bao tiêu nông sản minh bạch.</p>
+            <motion.div variants={itemVariants}>
+              <motion.h5
+                whileHover={{ scale: 1.02 }}
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/")}
+              >
+                <span className="footer-logo-icon"></span> PreOnic
+              </motion.h5>
+              <p>Nền tảng bao tiêu nông sản minh bạch.</p>
+            </motion.div>
           </Col>
 
           <Col md={4}>
-            <h6>Liên kết</h6>
-            <ul>
-              <li>Trang chủ</li>
-              <li>Sản phẩm</li>
-              <li>Giải pháp</li>
-            </ul>
+            <motion.div variants={itemVariants}>
+              <h6>Liên kết</h6>
+              <ul>
+                {[
+                  { label: "Trang chủ", path: "/" },
+                  { label: "Giải pháp", path: "/solutions" }
+                ].map((link, index) => (
+                  <motion.li 
+                    key={index}
+                    variants={linkVariants}
+                    whileHover="hover"
+                    onClick={() => navigate(link.path)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {link.label}
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
           </Col>
 
           <Col md={4}>
-            <h6>Liên hệ</h6>
-            <p>Email: support@preonic.vn</p>
-            <p>Hotline: 0909 999 999</p>
+            <motion.div variants={itemVariants}>
+              <h6>Liên hệ</h6>
+              <motion.p whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
+                Email: support@preonic.vn
+              </motion.p>
+              <motion.p whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
+                Hotline: 0909 999 999
+              </motion.p>
+            </motion.div>
           </Col>
         </Row>
 
-        <div className="footer-bottom">
+        <motion.div 
+          className="footer-bottom"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           © 2026 PreOnic. All rights reserved.
-        </div>
+        </motion.div>
       </Container>
-    </footer>
+    </motion.footer>
   );
 };
 

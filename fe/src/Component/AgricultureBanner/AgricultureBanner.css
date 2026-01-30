@@ -1,0 +1,257 @@
+.agriculture-banner {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%);
+  position: relative;
+  overflow: hidden;
+  margin: 40px 20px;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(6, 78, 59, 0.3);
+}
+
+.agriculture-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(19, 236, 55, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
+}
+
+.banner-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 25px;
+}
+
+.banner-title .highlight {
+  color: #13ec37;
+  position: relative;
+}
+
+.banner-description {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
+  margin-bottom: 35px;
+  max-width: 550px;
+}
+
+.banner-stats {
+  margin-bottom: 35px;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-5px);
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #13ec37;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.stat-detail {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 3px;
+}
+
+.stat-sublabel {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.banner-cta {
+  background: #13ec37;
+  border: none;
+  color: #064e3b;
+  padding: 16px 32px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(19, 236, 55, 0.3);
+}
+
+.banner-cta:hover {
+  background: #0fd62e;
+  box-shadow: 0 12px 35px rgba(19, 236, 55, 0.5);
+  transform: translateY(-2px);
+}
+
+.banner-image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 350px;
+}
+
+.chart-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 80%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.chart-bars {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100%;
+  gap: 8px;
+  padding: 30px 20px;
+  z-index: 2;
+}
+
+.chart-bar {
+  flex: 1;
+  background: transparent;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  min-height: 20px;
+}
+
+.bar-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(180deg, #13ec37 0%, #0fd62e 100%);
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -4px 12px rgba(19, 236, 55, 0.3);
+}
+
+.chart-icon {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  font-size: 3rem;
+  z-index: 3;
+  filter: drop-shadow(0 4px 12px rgba(19, 236, 55, 0.4));
+}
+
+.card-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-dot {
+  width: 20px;
+  height: 20px;
+  background: #13ec37;
+  border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .banner-title {
+    font-size: 2.2rem;
+  }
+
+  .banner-description {
+    font-size: 1rem;
+  }
+
+  .banner-image {
+    margin-top: 50px;
+    min-height: 300px;
+  }
+
+  .chart-container {
+    max-width: 400px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .agriculture-banner {
+    padding: 60px 0;
+  }
+
+  .banner-title {
+    font-size: 1.8rem;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+  }
+
+  .stat-detail {
+    font-size: 1.5rem;
+  }
+
+  .banner-cta {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+
+  .chart-icon {
+    font-size: 2.5rem;
+  }
+}

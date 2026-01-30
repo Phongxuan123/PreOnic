@@ -6,6 +6,7 @@
 
   border-radius: 20px;
   margin: 20px;
+  margin-top: 90px; /* Khoảng cách cho navbar fixed */
   padding: 90px 0;
 
   position: relative;
@@ -96,4 +97,80 @@
   .hero-actions button {
     margin-bottom: 12px;
   }
+}
+
+/* Animated particles */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-particles .particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(26, 255, 90, 0.4);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+/* Floating decorative elements */
+.hero-float-element {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26, 255, 90, 0.2) 0%, transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-float-element.float-1 {
+  top: 20%;
+  right: 10%;
+  width: 150px;
+  height: 150px;
+}
+
+.hero-float-element.float-2 {
+  bottom: 20%;
+  left: 5%;
+  width: 80px;
+  height: 80px;
+}
+
+/* Enhanced highlight animation */
+.hero-title .highlight {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 56px;
+  font-weight: 900;
+  font-style: italic;
+  color: #1aff5a;
+  text-shadow: 0 4px 20px rgba(26, 255, 90, 0.35);
+  background: linear-gradient(90deg, #1aff5a, #00ff88, #1aff5a);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Button hover enhancements */
+.hero-actions > div {
+  display: inline-block;
+}
+
+.hero-actions button {
+  margin-right: 16px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }

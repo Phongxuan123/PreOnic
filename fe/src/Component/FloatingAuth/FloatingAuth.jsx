@@ -1,30 +1,69 @@
 import "./FloatingAuth.css";
 import { FaBuilding, FaSeedling } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  initial: { opacity: 0, x: 50 },
+  animate: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.15
+    }
+  }
+};
+
+const buttonVariants = {
+  initial: { opacity: 0, scale: 0 },
+  animate: { 
+    opacity: 1, 
+    scale: 1,
+    transition: { type: "spring", stiffness: 400, damping: 15 }
+  },
+  hover: {
+    scale: 1.15,
+    y: -5,
+    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)"
+  },
+  tap: { scale: 0.9 }
+};
 
 const FloatingAuth = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="floating-auth">
+    <motion.div 
+      className="floating-auth"
+      variants={containerVariants}
+      initial="initial"
+      animate="animate"
+    >
       {/* DOANH NGHIỆP */}
-      <button
+      <motion.button
         className="auth-btn auth-enterprise"
         title="Doanh nghiệp"
         onClick={() => navigate("/enterprise")}
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
       >
         <FaBuilding />
-      </button>
+      </motion.button>
 
-      {/* NÔNG DÂN (làm sau) */}
-      <button
-         className="auth-btn auth-farmer"
-         title="Nông dân"
-          onClick={() => navigate("/farmer")}
+      {/* NÔNG DÂN */}
+      <motion.button
+        className="auth-btn auth-farmer"
+        title="Nông dân"
+        onClick={() => navigate("/farmer")}
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
       >
         <FaSeedling />
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 };
 

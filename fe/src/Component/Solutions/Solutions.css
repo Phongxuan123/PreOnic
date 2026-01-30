@@ -1,0 +1,333 @@
+.solutions-page {
+  background: #ffffff;
+  padding-top: 70px; /* Khoảng cách cho navbar fixed */
+}
+
+/* NAVBAR */
+.sol-navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.sol-nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sol-logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: #111812;
+  cursor: pointer;
+  position: relative;
+  padding-left: 36px;
+}
+
+.sol-logo::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2313ec37'%3E%3Cpath d='M12 2L4 7v10c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V7l-8-5zm0 18c-3.31-1.01-6-5.12-6-9V8.41l6-4.5 6 4.5V11c0 3.88-2.69 7.99-6 9z'/%3E%3Cpath d='M7 12l2 2 3-4 3 4 2-2'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.sol-nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.sol-nav-links span {
+  color: #374151;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.sol-nav-links span:hover,
+.sol-nav-links span.active {
+  color: #13ec37;
+}
+
+.sol-login-btn {
+  background: #13ec37;
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.sol-login-btn:hover {
+  background: #0fc930;
+  transform: translateY(-2px);
+}
+
+/* HERO */
+.sol-hero {
+  background: linear-gradient(135deg, #0d5a37, #0f7043);
+  padding: 100px 0 80px;
+  color: #ffffff;
+}
+
+.sol-hero-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.sol-hero-content h1 {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.sol-hero-content h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #13ec37;
+  margin-bottom: 24px;
+}
+
+.sol-hero-content p {
+  font-size: 18px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* SOLUTIONS */
+.sol-content {
+  padding: 80px 0;
+  background: #f6f8f6;
+}
+
+.solution-card {
+  border: none;
+  border-radius: 20px;
+  padding: 32px;
+  height: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
+}
+
+.solution-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.solution-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.icon-svg {
+  width: 48px;
+  height: 48px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.icon-farmer-svg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2313ec37'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+}
+
+.icon-enterprise-svg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z'/%3E%3C/svg%3E");
+}
+
+.icon-tech-svg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238b5cf6'%3E%3Cpath d='M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z'/%3E%3C/svg%3E");
+}
+
+.solution-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #111812;
+}
+
+.solution-card .subtitle {
+  color: #618968;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 15px;
+  color: #374151;
+}
+
+.check-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2313ec37'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* CTA */
+.sol-cta {
+  padding: 80px 0;
+  background: #ffffff;
+}
+
+.cta-box {
+  text-align: center;
+  background: linear-gradient(135deg, #13ec37, #0fc930);
+  padding: 60px 40px;
+  border-radius: 24px;
+  color: #ffffff;
+}
+
+.cta-box h2 {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.cta-box p {
+  font-size: 18px;
+  margin-bottom: 32px;
+  opacity: 0.95;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.cta-buttons .btn-primary {
+  background: #ffffff;
+  color: #13ec37;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cta-buttons .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cta-buttons .btn-secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cta-buttons .btn-secondary:hover {
+  background: #ffffff;
+  color: #13ec37;
+}
+
+/* FOOTER */
+.sol-footer {
+  background: #111812;
+  color: #ffffff;
+  padding: 60px 0 20px;
+}
+
+.sol-footer h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #13ec37;
+}
+
+.sol-footer p {
+  color: #9ca3af;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.sol-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sol-footer ul li {
+  color: #9ca3af;
+  font-size: 14px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.sol-footer ul li:hover {
+  color: #13ec37;
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #374151;
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sol-nav-links {
+    display: none;
+  }
+
+  .sol-hero-content h1 {
+    font-size: 32px;
+  }
+
+  .sol-hero-content h2 {
+    font-size: 24px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+  }
+
+  .cta-buttons button {
+    width: 100%;
+  }
+}
