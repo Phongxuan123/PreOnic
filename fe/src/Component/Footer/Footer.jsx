@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { ROUTES, COMPANY } from "../../constants";
 import "./Footer.css";
 
 const Footer = () => {
@@ -49,7 +50,7 @@ const Footer = () => {
               <motion.h5
                 whileHover={{ scale: 1.02 }}
                 style={{ cursor: "pointer" }}
-                onClick={() => navigate("/")}
+                onClick={() => navigate(ROUTES.HOME)}
               >
                 <span className="footer-logo-icon"></span> PreOnic
               </motion.h5>
@@ -62,8 +63,8 @@ const Footer = () => {
               <h6>Liên kết</h6>
               <ul>
                 {[
-                  { label: "Trang chủ", path: "/" },
-                  { label: "Giải pháp", path: "/solutions" }
+                  { label: "Trang chủ", path: ROUTES.HOME },
+                  { label: "Giải pháp", path: ROUTES.SOLUTIONS }
                 ].map((link, index) => (
                   <motion.li 
                     key={index}
@@ -83,10 +84,10 @@ const Footer = () => {
             <motion.div variants={itemVariants}>
               <h6>Liên hệ</h6>
               <motion.p whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
-                Email: support@preonic.vn
+                Email: {COMPANY.SUPPORT_EMAIL}
               </motion.p>
               <motion.p whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
-                Hotline: 0909 999 999
+                Hotline: {COMPANY.HOTLINE}
               </motion.p>
             </motion.div>
           </Col>
@@ -99,7 +100,7 @@ const Footer = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          © 2026 PreOnic. All rights reserved.
+          © {COMPANY.COPYRIGHT_YEAR} PreOnic. All rights reserved.
         </motion.div>
       </Container>
     </motion.footer>

@@ -8,7 +8,6 @@ import Campaigns from "../Component/Campaigns/Campaigns";
 import AgricultureBanner from "../Component/AgricultureBanner/AgricultureBanner";
 import Stats from "../Component/Stats/Stats";
 import Footer from "../Component/Footer/Footer";
-import FloatingAuth from "../Component/FloatingAuth/FloatingAuth";
 
 // SOLUTIONS & CONTACT
 import Solutions from "../Component/Solutions/Solutions";
@@ -32,7 +31,6 @@ function Home() {
       <AgricultureBanner />
       <Stats />
       <Footer />
-      <FloatingAuth />
     </>
   );
 }

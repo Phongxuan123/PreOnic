@@ -5,74 +5,231 @@
   left: 0;
   right: 0;
   z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glassmorphism effect khi scroll */
+.navbar-wrapper.scrolled {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
 /* Spacer để nội dung không bị che bởi navbar fixed */
 .navbar-wrapper + * {
-  padding-top: 70px;
+  padding-top: 80px;
 }
 
 /* ===== NAVBAR NỀN TRẮNG ĐẬM ===== */
 .navbar-custom {
-  background-color: #ffffff !important;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 14px 0;
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+  padding: 16px 0;
+  transition: all 0.3s ease;
 }
 
-/* Logo */
-.navbar-custom .navbar-brand {
+.navbar-wrapper.scrolled .navbar-custom {
+  padding: 12px 0;
+}
+
+/* ===== LOGO ===== */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 28px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(19, 236, 55, 0.3));
+}
+
+.logo-text {
   color: #111827 !important;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #111827 0%, #13ec37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.navbar-logo::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  margin-right: 8px;
-  vertical-align: middle;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2313ec37'%3E%3Cpath d='M12 2L4 7v10c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V7l-8-5zm0 18c-3.31-1.01-6-5.12-6-9V8.41l6-4.5 6 4.5V11c0 3.88-2.69 7.99-6 9z'/%3E%3Cpath d='M7 12l2 2 3-4 3 4 2-2'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
+/* ===== MENU ITEMS ===== */
+.nav-item-wrapper {
+  position: relative;
 }
 
-/* Menu giữa */
 .navbar-custom .nav-link {
   color: #374151 !important;
   font-weight: 500;
-  margin: 0 10px;
+  margin: 0 8px;
+  padding: 8px 16px !important;
+  border-radius: 8px;
+  position: relative;
+  transition: all 0.2s ease;
 }
 
 .navbar-custom .nav-link:hover {
-  color: #157347 !important;
+  color: #13ec37 !important;
+  background-color: rgba(19, 236, 55, 0.08);
+}
+
+.navbar-custom .nav-link.active {
+  color: #13ec37 !important;
+  font-weight: 600;
+}
+
+/* Active indicator - animated underline */
+.active-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 3px;
+  background: linear-gradient(90deg, #13ec37, #0ea830);
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 -2px 8px rgba(19, 236, 55, 0.4);
+}
+
+/* ===== NAVBAR ACTIONS ===== */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 /* ===== NÚT ĐĂNG NHẬP ===== */
 .navbar-login-btn {
-  background-color: #157347;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 8px;
+  background: #13ec37 !important;
+  border: none !important;
+  padding: 10px 24px;
+  border-radius: 10px;
   font-weight: 600;
+  font-size: 14px;
+  color: #ffffff !important;
+  min-width: 110px;
+  text-align: center;
 }
 
-.navbar-login-btn:hover {
-  background-color: #0f5c38;
-}
-
-/* ===== NÚT ĐĂNG KÝ (GIỮ LẠI CỦA BẠN) ===== */
+/* ===== NÚT ĐĂNG KÝ ===== */
 .navbar-register-btn {
-  background-color: transparent;
-  color: #157347;
-  padding: 8px 18px;
-  border-radius: 8px;
-  border: 2px solid #157347;
+  background: #13ec37 !important;
+  border: none !important;
+  padding: 10px 24px;
+  border-radius: 10px;
   font-weight: 600;
+  font-size: 14px;
+  color: #ffffff !important;
+  min-width: 110px;
+  text-align: center;
 }
 
-.navbar-register-btn:hover {
-  background-color: #157347;
-  color: #ffffff;
+/* ===== USER INFO ===== */
+.navbar-user-name {
+  color: #374151;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 16px;
+  background: rgba(19, 236, 55, 0.08);
+  border-radius: 8px;
+  white-space: nowrap;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== NÚT VÀO DASHBOARD ===== */
+.navbar-dashboard-btn {
+  border: none !important;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #ffffff !important;
+  text-align: center;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.farmer-dash-btn {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+}
+
+.farmer-dash-btn:hover {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+}
+
+.enterprise-dash-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+}
+
+.enterprise-dash-btn:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+/* ===== NÚT ĐĂNG XUẤT ===== */
+.navbar-logout-btn {
+  background: linear-gradient(135deg, #f43f5e 0%, #dc2626 100%) !important;
+  border: none !important;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff !important;
+  min-width: 110px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.navbar-logout-btn:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991px) {
+  .navbar-actions {
+    margin-top: 16px;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .navbar-login-btn,
+  .navbar-register-btn {
+    flex: 1;
+  }
+
+  .navbar-user-name {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .navbar-logout-btn {
+    width: 100%;
+  }
+
+  .logo-text {
+    font-size: 20px;
+  }
+
+  .logo-icon {
+    font-size: 24px;
+  }
+}
+
+/* ===== SMOOTH TRANSITIONS ===== */
+.navbar-custom * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

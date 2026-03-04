@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../Navbar/Navbar";
+import { useToast } from "../../contexts/ToastContext";
+import { ROUTES, TOAST_DURATION, COMPANY } from "../../constants";
 import "./Contact.css";
 
 // Animation variants
@@ -62,6 +64,7 @@ const socialIconVariants = {
 
 const Contact = () => {
   const navigate = useNavigate();
+  const toast = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -79,7 +82,11 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.");
+    
+    // Show success toast
+    toast.success("Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.", TOAST_DURATION.LONG);
+    
+    // Reset form
     setFormData({ name: "", email: "", phone: "", company: "", message: "" });
   };
 
@@ -280,8 +287,8 @@ const Contact = () => {
                 
                 {[
                   { icon: "icon-location", title: "Địa chỉ", content: "Số 123, Đường ABC, Quận Cầu Giấy<br />Hà Nội, Việt Nam" },
-                  { icon: "icon-phone", title: "Hotline", content: "1900 xxxx<br />024.xxxx.xxxx" },
-                  { icon: "icon-email", title: "Email", content: "contact@preonic.vn<br />support@preonic.vn" },
+                  { icon: "icon-phone", title: "Hotline", content: `${COMPANY.HOTLINE}<br />024.xxxx.xxxx` },
+                  { icon: "icon-email", title: "Email", content: `${COMPANY.EMAIL}<br />${COMPANY.SUPPORT_EMAIL}` },
                   { icon: "icon-clock", title: "Giờ làm việc", content: "Thứ 2 - Thứ 6: 8:00 - 17:30<br />Thứ 7: 8:00 - 12:00" }
                 ].map((item, idx) => (
                   <motion.div 
@@ -368,19 +375,19 @@ const Contact = () => {
                 <h4>Liên kết</h4>
                 <ul>
                   <motion.li 
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate(ROUTES.HOME)}
                     whileHover={{ x: 5, color: "#13ec37" }}
                   >
                     Trang chủ
                   </motion.li>
                   <motion.li 
-                    onClick={() => navigate("/solutions")}
+                    onClick={() => navigate(ROUTES.SOLUTIONS)}
                     whileHover={{ x: 5, color: "#13ec37" }}
                   >
                     Giải pháp
                   </motion.li>
                   <motion.li 
-                    onClick={() => navigate("/contact")}
+                    onClick={() => navigate(ROUTES.CONTACT)}
                     whileHover={{ x: 5, color: "#13ec37" }}
                   >
                     Liên hệ
@@ -396,9 +403,9 @@ const Contact = () => {
               >
                 <h4>Liên hệ</h4>
                 <ul>
-                  <li>Email: contact@preonic.vn</li>
-                  <li>Hotline: 1900 xxxx</li>
-                  <li>Địa chỉ: Hà Nội, Việt Nam</li>
+                  <li>Email: {COMPANY.EMAIL}</li>
+                  <li>Hotline: {COMPANY.HOTLINE}</li>
+                  <li>Địa chỉ: {COMPANY.ADDRESS}</li>
                 </ul>
               </motion.div>
             </Col>

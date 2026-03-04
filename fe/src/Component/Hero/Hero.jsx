@@ -1,6 +1,7 @@
 import { Container, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../constants";
 import "./Hero.css";
 
 function Hero() {
@@ -131,9 +132,9 @@ function Hero() {
               whileTap="tap"
             >
               <Button 
-                variant="success" 
+                className="hero-btn-primary" 
                 size="lg"
-                onClick={() => navigate("/solutions")}
+                onClick={() => navigate(ROUTES.PRODUCTS)}
               >
                 Khám phá ngay →
               </Button>
@@ -145,9 +146,9 @@ function Hero() {
               whileTap="tap"
             >
               <Button 
-                variant="outline-light" 
+                className="hero-btn-secondary" 
                 size="lg"
-                onClick={() => navigate("/register")}
+                onClick={() => navigate(ROUTES.REGISTER)}
               >
                 Đăng ký bán nông sản
               </Button>

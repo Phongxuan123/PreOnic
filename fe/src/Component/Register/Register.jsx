@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Navbar from '../Navbar/Navbar';
+import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
+import { ROUTES, TOAST_DURATION } from '../../constants';
+import { pageVariants, buttonVariants } from '../../constants/animations';
 import './Register.css';
 
 // Animation variants
-const pageVariants = {
-  initial: { opacity: 0 },
-  animate: { 
-    opacity: 1,
-    transition: { duration: 0.5 }
-  }
-};
-
 const containerVariants = {
   initial: { opacity: 0, y: 30 },
   animate: {
@@ -35,27 +31,6 @@ const itemVariants = {
   }
 };
 
-const cardVariants = {
-  initial: { opacity: 1, scale: 1 },
-  animate: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { type: "spring", stiffness: 200, damping: 20 }
-  },
-  hover: {
-    scale: 1.02,
-    y: -5,
-    transition: { type: "spring", stiffness: 400, damping: 20 }
-  },
-  tap: { scale: 0.98 },
-  selected: {
-    opacity: 1,
-    scale: 1,
-    boxShadow: "0 0 0 3px #13ec37",
-    transition: { type: "spring", stiffness: 400, damping: 25 }
-  }
-};
-
 const formGroupVariants = {
   initial: { opacity: 0, x: -20 },
   animate: { 
@@ -65,34 +40,16 @@ const formGroupVariants = {
   }
 };
 
-const buttonVariants = {
-  initial: { scale: 1 },
-  hover: { 
-    scale: 1.02,
-    boxShadow: "0 10px 30px rgba(19, 236, 55, 0.3)"
-  },
-  tap: { scale: 0.98 }
-};
-
-const checkBadgeVariants = {
-  initial: { scale: 0, opacity: 0 },
-  animate: { 
-    scale: 1, 
-    opacity: 1,
-    transition: { type: "spring", stiffness: 500, damping: 20 }
-  },
-  exit: { 
-    scale: 0, 
-    opacity: 0,
-    transition: { duration: 0.2 }
-  }
-};
 
 const Register = () => {
   const navigate = useNavigate();
+  const toast = useToast();
+  const { register } = useAuth();
   const [selectedRole, setSelectedRole] = useState('farmer'); // 'farmer' or 'enterprise'
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -110,30 +67,52 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     
-    // Validation
+    // Client-side validation
     if (!formData.fullName || !formData.email || !formData.phone || !formData.password || !formData.confirmPassword) {
-      alert('Vui lòng điền đầy đủ thông tin');
+      setError('Vui lòng điền đầy đủ thông tin');
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      alert('Mật khẩu xác nhận không khớp');
+      setError('Mật khẩu xác nhận không khớp');
       return;
     }
 
     if (!formData.agreeTerms) {
-      alert('Vui lòng đồng ý với điều khoản sử dụng');
+      setError('Vui lòng đồng ý với điều khoản sử dụng');
       return;
     }
 
-    // Navigate based on selected role
-    if (selectedRole === 'farmer') {
-      navigate('/farmer');
-    } else {
-      navigate('/enterprise');
+    setLoading(true);
+
+    try {
+      const response = await register({
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+        role: selectedRole,
+        agreeTerms: formData.agreeTerms
+      });
+
+      if (response.success) {
+        toast.success(`🎉 Chào mừng ${formData.fullName}! Tài khoản của bạn đã được tạo thành công.`, TOAST_DURATION.LONG);
+        
+        setTimeout(() => {
+          navigate(selectedRole === 'farmer' ? ROUTES.FARMER : ROUTES.ENTERPRISE);
+        }, 1000);
+      }
+    } catch (err) {
+      const errorMessage = err.message || 'Đăng ký thất bại. Vui lòng thử lại.';
+      setError(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -245,6 +224,26 @@ const Register = () => {
             onSubmit={handleSubmit}
             variants={itemVariants}
           >
+            {/* Error Message */}
+            {error && (
+              <motion.div 
+                className="error-message"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={{
+                  backgroundColor: '#ffe6e6',
+                  border: '1px solid #ff4444',
+                  color: '#cc0000',
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  marginBottom: '20px',
+                  fontSize: '14px'
+                }}
+              >
+                ⚠️ {error}
+              </motion.div>
+            )}
+
             <div className="form-fields">
               {/* Full Name */}
               <motion.div 
@@ -403,8 +402,13 @@ const Register = () => {
               initial="initial"
               whileHover="hover"
               whileTap="tap"
+              disabled={loading}
+              style={{
+                opacity: loading ? 0.7 : 1,
+                cursor: loading ? 'not-allowed' : 'pointer'
+              }}
             >
-              Tạo tài khoản
+              {loading ? "Đang xử lý..." : "Tạo tài khoản"}
             </motion.button>
 
             {/* Login Link */}
@@ -417,7 +421,7 @@ const Register = () => {
               Đã có tài khoản? 
               <motion.button 
                 type="button" 
-                onClick={() => navigate('/auth')}
+                onClick={() => navigate(ROUTES.AUTH)}
                 whileHover={{ color: "#13ec37", scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

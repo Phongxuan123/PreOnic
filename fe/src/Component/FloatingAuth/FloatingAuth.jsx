@@ -2,6 +2,7 @@ import "./FloatingAuth.css";
 import { FaBuilding, FaSeedling } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ROUTES } from "../../constants";
 
 const containerVariants = {
   initial: { opacity: 0, x: 50 },
@@ -44,7 +45,7 @@ const FloatingAuth = () => {
       <motion.button
         className="auth-btn auth-enterprise"
         title="Doanh nghiệp"
-        onClick={() => navigate("/enterprise")}
+        onClick={() => navigate(ROUTES.ENTERPRISE)}
         variants={buttonVariants}
         whileHover="hover"
         whileTap="tap"
@@ -56,7 +57,7 @@ const FloatingAuth = () => {
       <motion.button
         className="auth-btn auth-farmer"
         title="Nông dân"
-        onClick={() => navigate("/farmer")}
+        onClick={() => navigate(ROUTES.FARMER)}
         variants={buttonVariants}
         whileHover="hover"
         whileTap="tap"

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "../../contexts/AuthContext";
+import { useToast } from "../../contexts/ToastContext";
+import { ROUTES, TOAST_DURATION } from "../../constants";
 import "./Auth.css";
 
 // Animation variants
@@ -82,8 +85,12 @@ const floatingVariants = {
 
 const Auth = () => {
   const navigate = useNavigate();
+  const toast = useToast();
+  const { login } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     password: "",
@@ -102,18 +109,44 @@ const Auth = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isLogin) {
-      alert("Đăng nhập thành công!");
-      navigate("/farmer");
-    } else {
-      if (formData.password !== formData.confirmPassword) {
-        alert("Mật khẩu xác nhận không khớp!");
-        return;
+    setError("");
+    setLoading(true);
+
+    try {
+      if (isLogin) {
+        const response = await login({
+          emailOrPhone: formData.emailOrPhone,
+          password: formData.password,
+          rememberMe: formData.rememberMe,
+        });
+
+        if (response.success) {
+          const user = response.data.user;
+          
+          toast.success(`Chào mừng ${user.fullName || user.email}! Đăng nhập thành công.`, TOAST_DURATION.DEFAULT);
+          
+          setTimeout(() => {
+            if (user.role === 'farmer') {
+              navigate(ROUTES.FARMER);
+            } else if (user.role === 'enterprise') {
+              navigate(ROUTES.ENTERPRISE);
+            } else {
+              navigate(ROUTES.HOME);
+            }
+          }, 800);
+        }
+      } else {
+        // Inline register (redirect to full register page)
+        navigate(ROUTES.REGISTER);
       }
-      alert("Đăng ký thành công!");
-      navigate("/farmer");
+    } catch (err) {
+      const errorMessage = err.message || 'Đăng nhập thất bại. Vui lòng thử lại.';
+      setError(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -222,6 +255,26 @@ const Auth = () => {
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="auth-form-main">
+              {/* Error Message */}
+              {error && (
+                <motion.div 
+                  className="error-message"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  style={{
+                    backgroundColor: '#ffe6e6',
+                    border: '1px solid #ff4444',
+                    color: '#cc0000',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    marginBottom: '20px',
+                    fontSize: '14px'
+                  }}
+                >
+                  ⚠️ {error}
+                </motion.div>
+              )}
+
               <AnimatePresence mode="wait">
                 {isLogin ? (
                   <motion.div
@@ -424,8 +477,13 @@ const Auth = () => {
                 initial="initial"
                 whileHover="hover"
                 whileTap="tap"
+                disabled={loading}
+                style={{
+                  opacity: loading ? 0.7 : 1,
+                  cursor: loading ? 'not-allowed' : 'pointer'
+                }}
               >
-                {isLogin ? "Đăng nhập" : "Đăng ký ngay"}
+                {loading ? "Đang xử lý..." : (isLogin ? "Đăng nhập" : "Đăng ký ngay")}
               </motion.button>
 
               {/* Divider */}
@@ -483,7 +541,7 @@ const Auth = () => {
                 {isLogin ? "Chưa có tài khoản?" : "Đã có tài khoản?"}
                 <motion.button 
                   type="button" 
-                  onClick={() => isLogin ? navigate('/register') : setIsLogin(true)} 
+                  onClick={() => isLogin ? navigate(ROUTES.REGISTER) : setIsLogin(true)} 
                   className="toggle-mode"
                   whileHover={{ color: "#13ec37", scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -496,7 +554,7 @@ const Auth = () => {
             {/* Back to Home */}
             <motion.button 
               className="back-home" 
-              onClick={() => navigate("/")}
+              onClick={() => navigate(ROUTES.HOME)}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8 }}

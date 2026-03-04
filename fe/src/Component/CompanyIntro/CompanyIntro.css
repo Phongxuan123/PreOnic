@@ -1,0 +1,105 @@
+.company-intro-section {
+  padding: 80px 0;
+  background: #fff;
+}
+
+.intro-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: #e8f5e9;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2e7d32;
+  margin-bottom: 16px;
+}
+.intro-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.text-gradient {
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.intro-desc {
+  color: #555;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+/* Stats row */
+.intro-stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.intro-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 14px;
+  padding: 16px 20px;
+  min-width: 100px;
+  transition: transform 0.3s;
+}
+.intro-stat:hover { transform: translateY(-4px); }
+.stat-icon { font-size: 1.5rem; margin-bottom: 4px; }
+.stat-value { font-size: 1.2rem; font-weight: 800; color: #1a1a2e; }
+.stat-label { font-size: 0.78rem; color: #888; }
+
+/* Feature cards */
+.intro-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.intro-feature-card {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #f8fdf8;
+  border: 1px solid #e8f5e9;
+  transition: all 0.3s;
+}
+.intro-feature-card:hover {
+  box-shadow: 0 6px 24px rgb(0 0 0 / 8%);
+  transform: translateX(6px);
+}
+.feature-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8f5e9;
+  border-radius: 12px;
+}
+.feature-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+.feature-desc {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .company-intro-section { padding: 50px 0; }
+  .intro-title { font-size: 1.6rem; }
+  .intro-stats { gap: 10px; }
+  .intro-stat { padding: 12px 14px; min-width: 80px; }
+}

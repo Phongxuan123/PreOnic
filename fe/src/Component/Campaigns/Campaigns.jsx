@@ -1,6 +1,7 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../constants";
 import "./Campaigns.css";
 
 const campaigns = [
@@ -81,7 +82,7 @@ function Campaigns() {
               <h2>Mùa vụ đang mở đăng ký</h2>
               <p>Cơ hội đầu tư và bao tiêu sản phẩm chất lượng cao</p>
             </div>
-            <span className="view-all" onClick={() => navigate("/products")} style={{ cursor: "pointer" }}>Xem tất cả →</span>
+            <span className="view-all" onClick={() => navigate(ROUTES.PRODUCTS)} style={{ cursor: "pointer" }}>Xem tất cả →</span>
           </motion.div>
 
           {/* CAMPAIGNS CARDS */}

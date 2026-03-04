@@ -174,3 +174,52 @@
   font-weight: 600;
   transition: all 0.3s ease;
 }
+
+/* Primary Button - Màu xanh lá chủ đạo */
+.hero-btn-primary {
+  background: #13ec37 !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(19, 236, 55, 0.4);
+}
+
+.hero-btn-primary:hover {
+  background: #0ea830 !important;
+  box-shadow: 0 6px 20px rgba(19, 236, 55, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+.hero-btn-primary:active {
+  transform: translateY(0) !important;
+}
+
+/* Secondary Button - Outline xanh lá */
+.hero-btn-secondary {
+  background: transparent !important;
+  border: 2px solid #13ec37 !important;
+  color: #13ec37 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #13ec37;
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.hero-btn-secondary:hover {
+  color: #ffffff !important;
+  border-color: #13ec37 !important;
+  box-shadow: 0 4px 14px rgba(19, 236, 55, 0.4) !important;
+}
+
+.hero-btn-secondary:hover::before {
+  width: 100%;
+}

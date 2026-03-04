@@ -2,6 +2,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "../Navbar/Navbar";
+import { ROUTES } from "../../constants";
 import "./Solutions.css";
 
 // Animation variants
@@ -231,7 +232,7 @@ const Solutions = () => {
             >
               <motion.button 
                 className="btn-primary" 
-                onClick={() => navigate("/contact")}
+                onClick={() => navigate(ROUTES.CONTACT)}
                 variants={buttonVariants}
                 whileHover="hover"
                 whileTap="tap"
@@ -240,7 +241,7 @@ const Solutions = () => {
               </motion.button>
               <motion.button 
                 className="btn-secondary" 
-                onClick={() => navigate("/contact")}
+                onClick={() => navigate(ROUTES.CONTACT)}
                 variants={buttonVariants}
                 whileHover="hover"
                 whileTap="tap"
@@ -281,19 +282,19 @@ const Solutions = () => {
                 <h4>Liên kết</h4>
                 <ul>
                   <motion.li 
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate(ROUTES.HOME)}
                     whileHover={{ x: 5, color: "#13ec37" }}
                   >
                     Trang chủ
                   </motion.li>
                   <motion.li 
-                    onClick={() => navigate("/solutions")}
+                    onClick={() => navigate(ROUTES.SOLUTIONS)}
                     whileHover={{ x: 5, color: "#13ec37" }}
                   >
                     Giải pháp
                   </motion.li>
                   <motion.li 
-                    onClick={() => navigate("/contact")}
+                    onClick={() => navigate(ROUTES.CONTACT)}
                     whileHover={{ x: 5, color: "#13ec37" }}
                   >
                     Liên hệ

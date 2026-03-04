@@ -1,6 +1,7 @@
 import { Container, Row, Col, Card, Button, ProgressBar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ROUTES } from "../../constants";
 import "./Products.css";
 
 const products = [
@@ -83,7 +84,7 @@ function Products() {
             </div>
             <motion.span 
               className="view-all" 
-              onClick={() => navigate("/products")}
+              onClick={() => navigate(ROUTES.PRODUCTS)}
               whileHover={{ x: 5, color: "#13ec37" }}
               transition={{ duration: 0.2 }}
             >
