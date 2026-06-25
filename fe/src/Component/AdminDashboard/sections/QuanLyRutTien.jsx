@@ -236,7 +236,8 @@ export default function QuanLyRutTien() {
                           {r.userId ? (
                             <div>
                               <div style={{ fontWeight: 600, color: "#1e293b", fontSize: 13 }}>{r.userId.fullName}</div>
-                              <div style={{ fontSize: 11, color: "#94a3b8" }}>{r.userId.email}</div>
+                              {/* Email ẩn: admin không được xem email người dùng. */}
+                              {/* <div style={{ fontSize: 11, color: "#94a3b8" }}>{r.userId.email}</div> */}
                               <div style={{ fontSize: 11, color: "#94a3b8" }}>Số dư: {formatMoney(r.userId.virtualBalance || 0)}</div>
                             </div>
                           ) : <span style={{ color: "#94a3b8" }}>—</span>}

@@ -99,7 +99,7 @@ export default function QuanLyNguoiDung() {
           <input
             className="adm-search"
             type="text"
-            placeholder="Tìm theo tên, email, SĐT..."
+            placeholder="Tìm theo tên, SĐT..."
             value={search}
             onChange={e => setSearch(e.target.value)}
             onKeyDown={e => e.key === "Enter" && load(1)}
@@ -220,7 +220,8 @@ export default function QuanLyNguoiDung() {
                     </div>
                     <div>
                       <div style={{ fontWeight: 700, fontSize: 16, color: "#1e293b" }}>{selectedUser.fullName}</div>
-                      <div style={{ fontSize: 12, color: "#64748b" }}>{selectedUser.email}</div>
+                      {/* Email ẩn: admin không được xem email người dùng. */}
+                      {/* <div style={{ fontSize: 12, color: "#64748b" }}>{selectedUser.email}</div> */}
                     </div>
                   </div>
                   <div className="adm-detail-row"><span className="adm-detail-label">Vai trò</span><span className="adm-detail-val">{ROLE_LABELS[selectedUser.role] || selectedUser.role}</span></div>
@@ -277,7 +278,8 @@ export default function QuanLyNguoiDung() {
                 <p>Bạn sắp xóa vĩnh viễn tài khoản:</p>
                 <div className="adm-delete-target">
                   <strong>{deleteTarget.fullName}</strong>
-                  <span>{deleteTarget.email}</span>
+                  {/* Email ẩn: admin không được xem email người dùng. */}
+                  {/* <span>{deleteTarget.email}</span> */}
                 </div>
                 <p className="adm-delete-note">
                   Hành động này <strong>không thể hoàn tác</strong>. Tài khoản sẽ bị xóa khỏi hệ thống. Tài khoản đang có hợp đồng đang hoạt động sẽ không thể xóa.

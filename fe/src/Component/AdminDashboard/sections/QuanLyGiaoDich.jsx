@@ -146,7 +146,8 @@ export default function QuanLyGiaoDich() {
                           {t.userId ? (
                             <div>
                               <div style={{ fontWeight: 600, color: "#1e293b", fontSize: 13 }}>{t.userId.fullName}</div>
-                              <div style={{ fontSize: 11, color: "#94a3b8" }}>{t.userId.email}</div>
+                              {/* Email ẩn: admin không được xem email người dùng. */}
+                              {/* <div style={{ fontSize: 11, color: "#94a3b8" }}>{t.userId.email}</div> */}
                             </div>
                           ) : (
                             <span style={{ color: "#94a3b8" }}>—</span>

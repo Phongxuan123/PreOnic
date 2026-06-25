@@ -81,7 +81,7 @@ export class WithdrawalService {
         .sort({ status: 1, createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .populate('userId', 'fullName email role virtualBalance')
+        .populate('userId', 'fullName role virtualBalance')
         .populate('processedBy', 'fullName'),
       WithdrawalRequest.countDocuments(filter),
     ]);

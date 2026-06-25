@@ -45,7 +45,8 @@ export const getDashboard = asyncHandler(
       User.find({ role: { $ne: 'admin' } })
         .sort({ createdAt: -1 })
         .limit(5)
-        .select('fullName email role isActive createdAt'),
+          // Admin không được xem email người dùng → loại email khỏi payload.
+        .select('fullName role isActive createdAt'),
       Contract.find({})
         .sort({ createdAt: -1 })
         .limit(5)
@@ -133,8 +134,8 @@ export const getUsers = asyncHandler(
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        // Admin không được xem số dư ví người dùng → loại virtualBalance khỏi payload.
-        .select('fullName email phone role isActive isVerified reputationScore createdAt lastLogin province'),
+        // Admin không được xem email & số dư ví người dùng → loại email, virtualBalance khỏi payload.
+        .select('fullName phone role isActive isVerified reputationScore createdAt lastLogin province'),
       User.countDocuments(filter),
     ]);
 
@@ -149,8 +150,8 @@ export const getUsers = asyncHandler(
 export const getUserDetail = asyncHandler(
   async (req: AuthRequest, res: Response, _next: NextFunction) => {
     const user = await User.findById(req.params.id)
-      // Admin không được xem số dư ví người dùng → loại virtualBalance khỏi payload.
-      .select('-password -refreshToken -passwordResetToken -emailVerificationToken -virtualBalance');
+      // Admin không được xem email & số dư ví người dùng → loại cả hai khỏi payload.
+      .select('-password -refreshToken -passwordResetToken -emailVerificationToken -virtualBalance -email');
 
     if (!user) throw new AppError('Người dùng không tồn tại', 404);
 
@@ -263,8 +264,8 @@ export const getContractDetail = asyncHandler(
     }
 
     const contract = await Contract.findById(req.params.id)
-      .populate('farmerId', 'fullName email phone')
-      .populate('enterpriseId', 'fullName email phone');
+      .populate('farmerId', 'fullName phone')
+      .populate('enterpriseId', 'fullName phone');
 
     if (!contract) throw new AppError('Hợp đồng không tồn tại', 404);
 
@@ -294,8 +295,8 @@ export const getAllDisputes = asyncHandler(
         .skip(skip)
         .limit(limit)
         .populate('contractId', 'contractCode farmerName enterpriseName totalValue')
-        .populate('raisedBy', 'fullName email role')
-        .populate('againstUserId', 'fullName email role'),
+        .populate('raisedBy', 'fullName role')
+        .populate('againstUserId', 'fullName role'),
       Dispute.countDocuments(filter),
     ]);
 
@@ -311,8 +312,8 @@ export const getDisputeDetail = asyncHandler(
   async (req: AuthRequest, res: Response, _next: NextFunction) => {
     const dispute = await Dispute.findById(req.params.id)
       .populate('contractId', 'contractCode farmerName enterpriseName productName totalValue status')
-      .populate('raisedBy', 'fullName email role phone')
-      .populate('againstUserId', 'fullName email role phone');
+      .populate('raisedBy', 'fullName role phone')
+      .populate('againstUserId', 'fullName role phone');
 
     if (!dispute) throw new AppError('Khiếu nại không tồn tại', 404);
 
@@ -365,7 +366,7 @@ export const getAllTransactions = asyncHandler(
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .populate('userId', 'fullName email role'),
+        .populate('userId', 'fullName role'),
       PaymentTransaction.countDocuments(filter),
       PaymentTransaction.aggregate([
         { $match: { status: 'completed' } },

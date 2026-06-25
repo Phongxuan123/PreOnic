@@ -74,7 +74,8 @@ export class FeedbackService {
     const skip = (page - 1) * limit;
 
     const [items, total, unresolved] = await Promise.all([
-      Feedback.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
+      // Admin không được xem email người dùng → loại userEmail khỏi payload.
+      Feedback.find(query).select('-userEmail').sort({ createdAt: -1 }).skip(skip).limit(limit),
       Feedback.countDocuments(query),
       Feedback.countDocuments({ status: { $ne: 'resolved' } }),
     ]);

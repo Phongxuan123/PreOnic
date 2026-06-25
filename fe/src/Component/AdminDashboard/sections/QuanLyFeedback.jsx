@@ -146,7 +146,8 @@ export default function QuanLyFeedback() {
                       <tr key={item._id}>
                         <td>
                           <div style={{ fontWeight: 600, color: "#1e293b" }}>{item.userName}</div>
-                          <div style={{ fontSize: 12, color: "#94a3b8" }}>{item.userEmail}</div>
+                          {/* Email ẩn: admin không được xem email người dùng. */}
+                          {/* <div style={{ fontSize: 12, color: "#94a3b8" }}>{item.userEmail}</div> */}
                         </td>
                         <td>
                           <span className={`adm-badge ${item.userRole === "farmer" ? "adm-badge-green" : "adm-badge-blue"}`}>
@@ -190,7 +191,8 @@ export default function QuanLyFeedback() {
             </div>
             <div className="adm-modal-body">
               <div className="adm-detail-row"><span className="adm-detail-label">Người gửi</span><span className="adm-detail-val">{selected.userName}</span></div>
-              <div className="adm-detail-row"><span className="adm-detail-label">Email</span><span className="adm-detail-val">{selected.userEmail}</span></div>
+              {/* Email ẩn: admin không được xem email người dùng. */}
+              {/* <div className="adm-detail-row"><span className="adm-detail-label">Email</span><span className="adm-detail-val">{selected.userEmail}</span></div> */}
               <div className="adm-detail-row"><span className="adm-detail-label">Vai trò</span><span className="adm-detail-val">{ROLE_LABELS[selected.userRole] || selected.userRole}</span></div>
               <div className="adm-detail-row"><span className="adm-detail-label">Loại</span><span className="adm-detail-val">{CATEGORY_LABELS[selected.category] || "Khác"}</span></div>
               <div className="adm-detail-row"><span className="adm-detail-label">Trạng thái</span><span className="adm-detail-val"><span className={`adm-badge ${(STATUS_META[selected.status] || STATUS_META.new).cls}`}>{(STATUS_META[selected.status] || STATUS_META.new).label}</span></span></div>

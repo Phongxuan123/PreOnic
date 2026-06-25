@@ -123,7 +123,8 @@ export default function TongQuanContent({ onNavigate }) {
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: 13, fontWeight: 600, color: "#1e293b", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{u.fullName}</div>
-                    <div style={{ fontSize: 11, color: "#94a3b8" }}>{u.email}</div>
+                    {/* Email ẩn: admin không được xem email người dùng. */}
+                    {/* <div style={{ fontSize: 11, color: "#94a3b8" }}>{u.email}</div> */}
                   </div>
                   <span className={`adm-badge ${u.role === "farmer" ? "adm-badge-green" : "adm-badge-blue"}`}>
                     {u.role === "farmer" ? "Nông dân" : "Doanh nghiệp"}
