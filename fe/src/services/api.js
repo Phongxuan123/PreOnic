@@ -10,7 +10,10 @@ const PROFILE_INCOMPLETE_CODE = 'PROFILE_INCOMPLETE';
 
 const api = axios.create({
   baseURL: API_URL,
-  timeout: 15000,
+  // BE chạy Render Free → spin down khi idle, cold start có thể mất 30-50s.
+  // Timeout 15s khiến request đầu tiên (vd: Campaigns ở homepage) fail trong lúc BE đang "ngủ dậy".
+  // 45s đủ để vượt qua cold start; Render giữ kết nối và trả về khi server sẵn sàng.
+  timeout: 45000,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 });

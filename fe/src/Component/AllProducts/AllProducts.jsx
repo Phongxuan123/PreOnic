@@ -234,7 +234,7 @@ const AllProducts = () => {
                       <div className="ap-pbar">
                         <div className="ap-pfill" style={{ width: `${product.progress}%` }} />
                       </div>
-                      <span>{product.progress}% cam kết</span>
+                      <span>{parseFloat(product.progress.toFixed(2))}% cam kết</span>
                     </div>
                   </div>
                 </motion.div>
