@@ -39,10 +39,10 @@ export const protect = async (
     // Luồng bảo vệ luôn kiểm tra lại người dùng trong DB để chặn tài khoản đã bị vô hiệu hóa.
     const decoded = jwt.verify(token, getJwtSecret()) as JwtUserPayload;
     const activeUser = await User.findById(decoded.id).select(
-      'email role fullName isActive'
+      'email role fullName isActive isHidden'
     );
 
-    if (!activeUser || !activeUser.isActive) {
+    if (!activeUser || !activeUser.isActive || activeUser.isHidden) {
       return next(
         new AppError('Tài khoản không còn khả dụng hoặc đã bị vô hiệu hóa', 401)
       );

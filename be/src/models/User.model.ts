@@ -14,6 +14,8 @@ export interface IUser extends Document {
   phone?: string;
   avatar?: string;
   isActive: boolean;
+  // Ẩn mềm: account bị ẩn khỏi toàn hệ thống (kể cả admin) nhưng giữ nguyên dữ liệu để khôi phục.
+  isHidden?: boolean;
   isVerified: boolean;
   emailVerificationToken?: string;
   emailVerificationExpires?: Date;
@@ -107,6 +109,11 @@ const UserSchema = new Schema<IUser>(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    // Ẩn mềm khỏi toàn hệ thống (kể cả admin); có thể khôi phục.
+    isHidden: {
+      type: Boolean,
+      default: false,
     },
     isVerified: {
       type: Boolean,

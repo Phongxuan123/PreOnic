@@ -3,6 +3,7 @@ import Feedback, {
   FeedbackStatus,
   IFeedback,
 } from '../models/Feedback.model';
+import User from '../models/User.model';
 import { AppError } from '../middlewares/error.middleware';
 
 interface CreateFeedbackInput {
@@ -59,6 +60,11 @@ export class FeedbackService {
     limit?: number;
   }) {
     const query: Record<string, unknown> = {};
+    // Ẩn feedback của các account bị ẩn mềm khỏi danh sách admin.
+    const hiddenUserIds = await User.find({ isHidden: true }).distinct('_id');
+    if (hiddenUserIds.length) {
+      query.userId = { $nin: hiddenUserIds };
+    }
     if (filters.status && VALID_STATUSES.includes(filters.status as FeedbackStatus)) {
       query.status = filters.status;
     }

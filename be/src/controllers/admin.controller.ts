@@ -29,9 +29,9 @@ export const getDashboard = asyncHandler(
       recentUsers,
       recentContracts,
     ] = await Promise.all([
-      User.countDocuments({ role: { $ne: 'admin' } }),
-      User.countDocuments({ role: 'farmer' }),
-      User.countDocuments({ role: 'enterprise' }),
+      User.countDocuments({ role: { $ne: 'admin' }, isHidden: { $ne: true } }),
+      User.countDocuments({ role: 'farmer', isHidden: { $ne: true } }),
+      User.countDocuments({ role: 'enterprise', isHidden: { $ne: true } }),
       Contract.countDocuments({}),
       Contract.countDocuments({ status: 'active' }),
       Contract.countDocuments({ status: 'completed' }),
@@ -42,7 +42,7 @@ export const getDashboard = asyncHandler(
         { $match: { status: 'completed', type: 'topup' } },
         { $group: { _id: null, total: { $sum: '$amount' } } },
       ]),
-      User.find({ role: { $ne: 'admin' } })
+      User.find({ role: { $ne: 'admin' }, isHidden: { $ne: true } })
         .sort({ createdAt: -1 })
         .limit(5)
           // Admin không được xem email người dùng → loại email khỏi payload.
@@ -113,7 +113,8 @@ export const getUsers = asyncHandler(
     const role = req.query.role as string;
     const isActive = req.query.isActive as string;
 
-    const filter: any = { role: { $ne: 'admin' } };
+    // Loại các account bị ẩn mềm khỏi danh sách quản lý (kể cả admin không thấy).
+    const filter: any = { role: { $ne: 'admin' }, isHidden: { $ne: true } };
 
     if (role && ['farmer', 'enterprise'].includes(role)) {
       filter.role = role;
@@ -153,7 +154,8 @@ export const getUserDetail = asyncHandler(
       // Admin không được xem email & số dư ví người dùng → loại cả hai khỏi payload.
       .select('-password -refreshToken -passwordResetToken -emailVerificationToken -virtualBalance -email');
 
-    if (!user) throw new AppError('Người dùng không tồn tại', 404);
+    // Account bị ẩn mềm → coi như không tồn tại với admin.
+    if (!user || user.isHidden) throw new AppError('Người dùng không tồn tại', 404);
 
     const [contractCount, transactionCount] = await Promise.all([
       Contract.countDocuments({
