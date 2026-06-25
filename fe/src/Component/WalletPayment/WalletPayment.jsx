@@ -8,7 +8,8 @@ import WithdrawTab from "./WithdrawTab";
 import "./WalletPayment.css";
 
 const TRANSACTION_PAGE_SIZE = 20;
-const DEMO_MIN_TOPUP = 1000;
+// Nạp demo tạm ẩn — bỏ comment dòng dưới khi kích hoạt lại.
+// const DEMO_MIN_TOPUP = 1000;
 
 const WALLET_TABS = [
   { key: "overview", label: "Tổng quan" },
@@ -212,29 +213,30 @@ export default function WalletPayment({ role }) {
     }
   };
 
-  const handleDemoTopup = async () => {
-    const amount = Number(topupAmount);
-    if (!amount || amount < DEMO_MIN_TOPUP) {
-      toastError("Vui lòng nhập số tiền");
-      return;
-    }
-    setTopupLoading(true);
-    try {
-      const res = await paymentService.demoTopup(amount);
-      if (res.data?.data) {
-        setCreatedTopup(null);
-        toastSuccess(`Nạp demo thành công +${formatMoney(amount)}!`);
-        setTopupAmount("");
-        setTxFilter("topup");
-        setTxPage(1);
-        setActiveTab("history");
-        await refreshWalletData(1, "topup");
-      }
-    } catch (err) {
-      toastError(err.response?.data?.message || "Lỗi nạp demo");
-    }
-    setTopupLoading(false);
-  };
+  // Nạp demo tạm ẩn — bỏ comment cả hàm này khi kích hoạt lại (xem nút "Nạp demo" trong JSX).
+  // const handleDemoTopup = async () => {
+  //   const amount = Number(topupAmount);
+  //   if (!amount || amount < DEMO_MIN_TOPUP) {
+  //     toastError("Vui lòng nhập số tiền");
+  //     return;
+  //   }
+  //   setTopupLoading(true);
+  //   try {
+  //     const res = await paymentService.demoTopup(amount);
+  //     if (res.data?.data) {
+  //       setCreatedTopup(null);
+  //       toastSuccess(`Nạp demo thành công +${formatMoney(amount)}!`);
+  //       setTopupAmount("");
+  //       setTxFilter("topup");
+  //       setTxPage(1);
+  //       setActiveTab("history");
+  //       await refreshWalletData(1, "topup");
+  //     }
+  //   } catch (err) {
+  //     toastError(err.response?.data?.message || "Lỗi nạp demo");
+  //   }
+  //   setTopupLoading(false);
+  // };
 
   const handleCancelTopup = async (orderCode) => {
     setCancellingCode(String(orderCode));

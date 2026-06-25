@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import adminService from "../../../services/admin.service";
-import { formatMoney } from "../../../hooks/useApiData";
+// formatMoney tạm bỏ vì cột "Số dư ví" đã ẩn — import lại khi kích hoạt cột.
+// import { formatMoney } from "../../../hooks/useApiData";
 import { useToast } from "../../../contexts/ToastContext";
 
 const ROLE_LABELS = { farmer: "Nông dân", enterprise: "Doanh nghiệp" };
