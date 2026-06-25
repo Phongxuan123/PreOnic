@@ -18,6 +18,10 @@ import {
   adminCompleteWithdrawal,
   adminRejectWithdrawal,
 } from '../controllers/withdrawal.controller';
+import {
+  adminGetFeedbacks,
+  adminUpdateFeedbackStatus,
+} from '../controllers/feedback.controller';
 
 const router = Router();
 
@@ -50,5 +54,9 @@ router.get('/transactions', getAllTransactions);
 router.get('/withdrawals', adminListWithdrawals);
 router.patch('/withdrawals/:id/complete', adminCompleteWithdrawal);
 router.patch('/withdrawals/:id/reject', adminRejectWithdrawal);
+
+// System feedback management
+router.get('/feedback', adminGetFeedbacks);
+router.patch('/feedback/:id/status', adminUpdateFeedbackStatus);
 
 export default router;

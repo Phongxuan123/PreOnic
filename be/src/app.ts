@@ -18,6 +18,7 @@ import messagingRoutes from './routes/messaging.routes';
 import uploadRoutes from './routes/upload.routes';
 import paymentRoutes from './routes/payment.routes';
 import partnerRatingRoutes from './routes/partner-rating.routes';
+import feedbackRoutes from './routes/feedback.routes';
 import adminRoutes from './routes/admin.routes';
 import { REQUEST_LIMITS } from './constants';
 
@@ -133,6 +134,7 @@ app.use(`${API_PREFIX}/messaging`, messagingRoutes);
 app.use(`${API_PREFIX}/upload`, uploadRoutes);
 app.use(`${API_PREFIX}/payment`, paymentRoutes);
 app.use(`${API_PREFIX}/partner-ratings`, partnerRatingRoutes);
+app.use(`${API_PREFIX}/feedback`, feedbackRoutes);
 app.use(`${API_PREFIX}/admin`, adminRoutes);
 
 // Images are now served via Cloudinary — no local /uploads route needed

@@ -82,6 +82,17 @@ const adminService = {
     const response = await api.patch(`/admin/withdrawals/${id}/reject`, { adminNote });
     return response.data;
   },
+
+  // System feedback
+  getFeedbacks: async (params = {}) => {
+    const response = await api.get('/admin/feedback', { params });
+    return response.data;
+  },
+
+  updateFeedbackStatus: async (id, status, adminNote = '') => {
+    const response = await api.patch(`/admin/feedback/${id}/status`, { status, adminNote });
+    return response.data;
+  },
 };
 
 export default adminService;

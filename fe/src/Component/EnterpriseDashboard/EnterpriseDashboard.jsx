@@ -19,6 +19,7 @@ import EscrowContent from "./sections/EscrowContent";
 import SuppliersContent from "./sections/SuppliersContent";
 import WalletPayment from "../WalletPayment/WalletPayment";
 import BilateralRating from "../BilateralRating/BilateralRating";
+import FeedbackContent from "../Feedback/FeedbackContent";
 import "../common/DashboardResponsive.css";
 import "./EnterpriseDashboard.css";
 import "./dh-styles.css";
@@ -112,6 +113,7 @@ export default function EnterpriseDashboard() {
           {activeNav === "lichsu" && <LichSuGiaoDichContent />}
           {activeNav === "danhgia" && <BilateralRating currentRole="enterprise" />}
           {activeNav === "thoitiet" && <WeatherInsuranceContent />}
+          {activeNav === "feedback" && <FeedbackContent />}
         </div>
       </main>
 

@@ -125,6 +125,7 @@ export const FARMER_DASHBOARD_NAV_ITEMS = [
   { key: 'taichinh', label: 'Tài chính', cls: 'nav-finance' },
   { key: 'danhgia', label: 'Đánh giá đối tác', cls: 'nav-rating' },
   { key: 'thoitiet', label: 'Thời tiết & Bảo hiểm', cls: 'nav-weather' },
+  { key: 'feedback', label: 'Phản hồi hệ thống', cls: 'nav-feedback' },
 ];
 
 export const ENTERPRISE_DASHBOARD_NAV_ITEMS = [
@@ -138,6 +139,7 @@ export const ENTERPRISE_DASHBOARD_NAV_ITEMS = [
   { key: 'lichsu', label: 'Lịch sử giao dịch', cls: 'nav-warehouse' },
   { key: 'danhgia', label: 'Đánh giá đối tác', cls: 'nav-rating' },
   { key: 'thoitiet', label: 'Thời tiết & Bảo hiểm', cls: 'nav-weather' },
+  { key: 'feedback', label: 'Phản hồi hệ thống', cls: 'nav-feedback' },
 ];
 
 export const DEFAULT_UI_METRICS = {

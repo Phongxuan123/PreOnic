@@ -10,6 +10,7 @@ import QuanLyHopDong from "./sections/QuanLyHopDong";
 import QuanLyKhieuNai from "./sections/QuanLyKhieuNai";
 import QuanLyGiaoDich from "./sections/QuanLyGiaoDich";
 import QuanLyRutTien from "./sections/QuanLyRutTien";
+import QuanLyFeedback from "./sections/QuanLyFeedback";
 import "./AdminDashboard.css";
 
 const NAV_ITEMS = [
@@ -19,6 +20,7 @@ const NAV_ITEMS = [
   { key: "khieuuai",  label: "Quản lý Khiếu nại",    icon: "KN" },
   { key: "giaodich",  label: "Quản lý Giao dịch",    icon: "GD" },
   { key: "ruttien",   label: "Quản lý Rút tiền",     icon: "RT" },
+  { key: "feedback",  label: "Phản hồi hệ thống",    icon: "PH" },
 ];
 
 export default function AdminDashboard() {
@@ -109,6 +111,7 @@ export default function AdminDashboard() {
           {activeNav === "khieuuai"  && <QuanLyKhieuNai />}
           {activeNav === "giaodich"  && <QuanLyGiaoDich />}
           {activeNav === "ruttien"   && <QuanLyRutTien />}
+          {activeNav === "feedback"  && <QuanLyFeedback />}
         </div>
       </main>
     </div>

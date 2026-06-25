@@ -15,6 +15,7 @@ import FarmerEscrowContent from "./sections/FarmerEscrowContent";
 import FarmerFinanceContent from "./sections/FarmerFinanceContent";
 import WalletPayment from "../WalletPayment/WalletPayment";
 import BilateralRating from "../BilateralRating/BilateralRating";
+import FeedbackContent from "../Feedback/FeedbackContent";
 import NotificationBell from "../NotificationBell/NotificationBell";
 import MessengerFloat from "../MessengerFloat/MessengerFloat";
 import "../common/DashboardResponsive.css";
@@ -112,6 +113,7 @@ export default function FarmerDashboard() {
           {activeTab === "taichinh" && <FarmerFinanceContent />}
           {activeTab === "danhgia" && <BilateralRating currentRole="farmer" />}
           {activeTab === "thoitiet" && <FarmerWeatherContent />}
+          {activeTab === "feedback" && <FeedbackContent />}
           {activeTab === "dangban" && <DangBanContent />}
         </div>
       </main>
