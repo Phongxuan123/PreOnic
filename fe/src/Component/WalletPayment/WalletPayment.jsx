@@ -546,13 +546,14 @@ export default function WalletPayment({ role }) {
                 >
                   {topupLoading ? <span className="wlt-bspin" /> : <><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" style={{ width: 17, height: 17 }}><path d="M3 8l7-5 7 5H3z"/><path d="M5 8v7m4-7v7m4-7v7M3 15h14" strokeLinecap="round"/></svg> Tạo lệnh SePay</>}
                 </button>
-                <button
+                {/* Chức năng "Nạp demo" tạm ẩn — bỏ comment để kích hoạt lại sau. */}
+                {/* <button
                   className="wlt-btn-demo"
                   onClick={handleDemoTopup}
                   disabled={topupLoading || !topupAmount || Number(topupAmount) < DEMO_MIN_TOPUP}
                 >
                   {topupLoading ? <span className="wlt-bspin" /> : <><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" style={{ width: 17, height: 17 }}><path d="M11 2L4 12h7l-2 6 9-10h-7L11 2z" strokeLinejoin="round"/></svg> Nạp demo (tức thì)</>}
-                </button>
+                </button> */}
               </div>
 
               {createdTopup && (
@@ -639,14 +640,15 @@ export default function WalletPayment({ role }) {
                       <p>Tạo lệnh nạp tiền, chuyển khoản đúng nội dung, SePay sẽ gửi webhook để hệ thống cộng ví tự động.</p>
                     </div>
                   </div>
-                  <div className="wlt-info-divider" />
+                  {/* Mục thông tin "Demo" tạm ẩn — bỏ comment để kích hoạt lại sau. */}
+                  {/* <div className="wlt-info-divider" />
                   <div className="wlt-info-row wlt-info-demo">
                     <div className="wlt-info-row-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" style={{ width: 22, height: 22 }}><path d="M11 2L4 12h7l-2 6 9-10h-7L11 2z" strokeLinejoin="round"/></svg></div>
                     <div>
                       <strong>Demo — Miễn phí</strong>
                       <p>Nạp tức thì, không cần thanh toán — dùng để trải nghiệm và kiểm thử hệ thống.</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 

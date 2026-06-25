@@ -133,7 +133,8 @@ export const getUsers = asyncHandler(
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .select('fullName email phone role isActive isVerified virtualBalance reputationScore createdAt lastLogin province'),
+        // Admin không được xem số dư ví người dùng → loại virtualBalance khỏi payload.
+        .select('fullName email phone role isActive isVerified reputationScore createdAt lastLogin province'),
       User.countDocuments(filter),
     ]);
 
@@ -148,7 +149,8 @@ export const getUsers = asyncHandler(
 export const getUserDetail = asyncHandler(
   async (req: AuthRequest, res: Response, _next: NextFunction) => {
     const user = await User.findById(req.params.id)
-      .select('-password -refreshToken -passwordResetToken -emailVerificationToken');
+      // Admin không được xem số dư ví người dùng → loại virtualBalance khỏi payload.
+      .select('-password -refreshToken -passwordResetToken -emailVerificationToken -virtualBalance');
 
     if (!user) throw new AppError('Người dùng không tồn tại', 404);
 

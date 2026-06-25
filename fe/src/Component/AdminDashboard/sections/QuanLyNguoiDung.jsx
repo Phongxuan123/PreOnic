@@ -127,10 +127,12 @@ export default function QuanLyNguoiDung() {
                 <thead>
                   <tr>
                     <th>Họ tên</th>
-                    <th>Email</th>
+                    {/* Cột Email tạm ẩn theo yêu cầu — bỏ comment để kích hoạt lại sau. */}
+                    {/* <th>Email</th> */}
                     <th>Vai trò</th>
                     <th>Trạng thái</th>
-                    <th>Số dư ví</th>
+                    {/* Cột Số dư ví ẩn: admin không được xem số dư người dùng. */}
+                    {/* <th>Số dư ví</th> */}
                     <th>Ngày tham gia</th>
                     <th>Hành động</th>
                   </tr>
@@ -146,7 +148,8 @@ export default function QuanLyNguoiDung() {
                           <span style={{ fontWeight: 600, color: "#1e293b" }}>{u.fullName}</span>
                         </div>
                       </td>
-                      <td style={{ color: "#64748b" }}>{u.email}</td>
+                      {/* Cột Email tạm ẩn theo yêu cầu — bỏ comment để kích hoạt lại sau. */}
+                      {/* <td style={{ color: "#64748b" }}>{u.email}</td> */}
                       <td>
                         <span className={`adm-badge ${u.role === "farmer" ? "adm-badge-green" : "adm-badge-blue"}`}>
                           {ROLE_LABELS[u.role] || u.role}
@@ -157,7 +160,8 @@ export default function QuanLyNguoiDung() {
                           {u.isActive ? "Hoạt động" : "Vô hiệu hóa"}
                         </span>
                       </td>
-                      <td style={{ fontWeight: 600, color: "#1d4ed8" }}>{formatMoney(u.virtualBalance || 0)}</td>
+                      {/* Số dư ví ẩn: admin không được xem số dư người dùng. */}
+                      {/* <td style={{ fontWeight: 600, color: "#1d4ed8" }}>{formatMoney(u.virtualBalance || 0)}</td> */}
                       <td style={{ color: "#64748b" }}>{fmtDate(u.createdAt)}</td>
                       <td>
                         <div style={{ display: "flex", gap: 6 }}>
@@ -223,7 +227,8 @@ export default function QuanLyNguoiDung() {
                   <div className="adm-detail-row"><span className="adm-detail-label">Xác minh email</span><span className="adm-detail-val">{selectedUser.isVerified ? "Đã xác minh" : "Chưa xác minh"}</span></div>
                   <div className="adm-detail-row"><span className="adm-detail-label">Số điện thoại</span><span className="adm-detail-val">{selectedUser.phone || "—"}</span></div>
                   <div className="adm-detail-row"><span className="adm-detail-label">Tỉnh/TP</span><span className="adm-detail-val">{selectedUser.province || "—"}</span></div>
-                  <div className="adm-detail-row"><span className="adm-detail-label">Số dư ví</span><span className="adm-detail-val" style={{ color: "#1d4ed8" }}>{formatMoney(selectedUser.virtualBalance || 0)}</span></div>
+                  {/* Số dư ví ẩn: admin không được xem số dư người dùng. */}
+                  {/* <div className="adm-detail-row"><span className="adm-detail-label">Số dư ví</span><span className="adm-detail-val" style={{ color: "#1d4ed8" }}>{formatMoney(selectedUser.virtualBalance || 0)}</span></div> */}
                   <div className="adm-detail-row"><span className="adm-detail-label">Điểm uy tín</span><span className="adm-detail-val">{selectedUser.reputationScore?.toFixed(1) || "—"} / 5.0</span></div>
                   <div className="adm-detail-row"><span className="adm-detail-label">Hợp đồng liên quan</span><span className="adm-detail-val">{selectedUser.contractCount ?? "—"}</span></div>
                   <div className="adm-detail-row"><span className="adm-detail-label">Giao dịch hoàn thành</span><span className="adm-detail-val">{selectedUser.transactionCount ?? "—"}</span></div>

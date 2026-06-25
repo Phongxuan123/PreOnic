@@ -168,7 +168,7 @@ const UserSchema = new Schema<IUser>(
     },
     virtualBalance: {
       type: Number,
-      default: 10000000,
+      default: 0,
       min: 0,
     },
     reputationScore: {
