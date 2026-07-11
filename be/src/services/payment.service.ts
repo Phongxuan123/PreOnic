@@ -2,6 +2,9 @@ import User from '../models/User.model';
 import PaymentTransaction from '../models/PaymentTransaction.model';
 import { AppError } from '../middlewares/error.middleware';
 import { PAYMENT_LIMITS } from '../constants';
+import { createLogger } from '../utils/logger';
+
+const log = createLogger('Payment');
 
 const ORDER_CODE_SUFFIX_LENGTH = 8;
 const ORDER_CODE_RANDOM_DIGITS = 3;
@@ -102,7 +105,9 @@ const parseTransferAmount = (amount: number | string | undefined): number => {
 
 const extractTransferCode = (content: string | undefined): string | null => {
   if (!content) return null;
-  const normalizedContent = content.toUpperCase();
+  // Một số app ngân hàng chèn khoảng trắng/gạch ngang vào nội dung chuyển khoản
+  // (vd "PON 12345678901" hoặc "PON-1234 5678 901") nên phải loại bỏ trước khi match.
+  const normalizedContent = content.toUpperCase().replace(/[\s\-_.]/g, '');
   const match = normalizedContent.match(/PON(\d{11})/);
   return match ? `${SEPAY_TRANSFER_PREFIX}${match[1]}` : null;
 };
@@ -131,8 +136,13 @@ const isAuthorizedWebhook = (authorizationHeader: string | undefined): boolean =
     process.env.SEPAY_API_KEY?.trim() ||
     '';
 
+  // Fail-closed: nếu server chưa cấu hình secret nào thì từ chối webhook thay vì
+  // tự động chấp nhận — thiếu cấu hình không được phép mở toang endpoint cộng tiền.
   if (!secretKey) {
-    return true;
+    log.error(
+      'SEPAY_WEBHOOK_SECRET/SEPAY_SECRET_KEY chưa được cấu hình — từ chối webhook SePay để tránh giả mạo'
+    );
+    return false;
   }
 
   if (!authorizationHeader) {
@@ -210,6 +220,9 @@ export class PaymentService {
     authorizationHeader?: string
   ) {
     if (!isAuthorizedWebhook(authorizationHeader)) {
+      log.warn('Webhook SePay bị từ chối do Authorization không hợp lệ', {
+        sepayId: webhookData?.id,
+      });
       throw new AppError('Webhook SePay không hợp lệ', 401);
     }
 
@@ -219,6 +232,10 @@ export class PaymentService {
 
     const transferCode = extractTransferCode(webhookData.content);
     if (!transferCode) {
+      log.warn('Webhook SePay bị bỏ qua: không trích được mã giao dịch từ nội dung chuyển khoản', {
+        sepayId: webhookData.id,
+        content: webhookData.content,
+      });
       return { success: true, ignored: true, reason: 'missing_transfer_code' };
     }
 
@@ -230,6 +247,11 @@ export class PaymentService {
     });
 
     if (!transaction) {
+      log.warn('Webhook SePay bị bỏ qua: không tìm thấy giao dịch khớp orderCode', {
+        sepayId: webhookData.id,
+        orderCode,
+        content: webhookData.content,
+      });
       return { success: true, ignored: true, reason: 'transaction_not_found' };
     }
 
@@ -239,6 +261,13 @@ export class PaymentService {
 
     const transferAmount = parseTransferAmount(webhookData.transferAmount);
     if (transferAmount !== transaction.amount) {
+      log.error('Webhook SePay bị bỏ qua: số tiền chuyển khoản không khớp giao dịch — cần đối soát thủ công', {
+        sepayId: webhookData.id,
+        orderCode,
+        expectedAmount: transaction.amount,
+        transferAmount,
+      });
+
       transaction.metadata = {
         ...(transaction.metadata || {}),
         lastWebhookMismatch: {
